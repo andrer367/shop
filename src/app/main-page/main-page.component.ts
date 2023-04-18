@@ -13,7 +13,7 @@ export class MainPageComponent implements OnInit {
   pSub: Subscription = new Subscription();
 
 
-  constructor(private productService: ProductService) { }
+  constructor(public productService: ProductService) { }
   ngOnInit(): void {
     this.pSub=this.productService.getAll().subscribe(
       response => { this.products = response },

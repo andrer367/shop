@@ -8,6 +8,7 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductService {
+  type: string = '';
 
   constructor(private http: HttpClient) { }
 
@@ -51,5 +52,9 @@ export class ProductService {
   updateById(product: ProductResponse){
     return this.http.patch(`${enviromnet.fbDbUrl}/products/${product.id}.json`, product)
 
+  }
+
+  setType(type: string) {
+    this.type = type;
   }
 }
