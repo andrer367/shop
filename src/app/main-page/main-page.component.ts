@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../shared/product.service';
-import { Product, ProductResponse } from '../shared/interfaces';
-import { throwError } from 'rxjs';
+import { ProductResponse } from '../shared/interfaces';
+import { Subscription, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-main-page',
@@ -10,14 +10,22 @@ import { throwError } from 'rxjs';
 })
 export class MainPageComponent implements OnInit {
   products: ProductResponse[] = [];
+  pSub: Subscription = new Subscription();
+
 
   constructor(private productService: ProductService) { }
   ngOnInit(): void {
-    this.productService.getAll().subscribe(
+    this.pSub=this.productService.getAll().subscribe(
       response => { this.products = response },
       error => {
         throwError(error)
       }
     );
+  }
+
+  ngOnDestroy() {
+    if (this.pSub) {
+      this.pSub.unsubscribe()
+    }
   }
 }

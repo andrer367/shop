@@ -33,7 +33,7 @@ export class ProductService {
     }))
   }
 
-  getbyId(id: string):Observable<ProductResponse> {
+  getById(id: string):Observable<ProductResponse> {
     return this.http.get<ProductResponse>(`${enviromnet.fbDbUrl}/products/${id}.json`)
       .pipe(map((res: ProductResponse) => {
         return {
@@ -42,5 +42,14 @@ export class ProductService {
           data: new Date(res.date)
         }
       }))
+  }
+
+  removeById(id: string) {
+    return this.http.delete(`${enviromnet.fbDbUrl}/products/${id}.json`)
+  }
+
+  updateById(product: ProductResponse){
+    return this.http.patch(`${enviromnet.fbDbUrl}/products/${product.id}.json`, product)
+
   }
 }

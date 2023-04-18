@@ -12,7 +12,7 @@ export class AdminLayoutComponent {
   constructor( public auth: AuthService , private router: Router){}
 
   logout($event: any) {
-    event?.preventDefault();
+    $event.preventDefault();
     this.auth.logout();
     this.router.navigate(['/admin', 'login']);
   } 

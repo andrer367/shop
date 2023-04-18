@@ -10,7 +10,7 @@ import { ProductService } from 'src/app/shared/product.service';
   styleUrls: ['./add-page.component.scss']
 })
 export class AddPageComponent implements OnInit {
-  submited = false;
+  submitted = false;
   form!: FormGroup;
 
   constructor(private productService: ProductService, private router: Router){}
@@ -31,7 +31,7 @@ export class AddPageComponent implements OnInit {
       return;
     }
 
-    this.submited = true;
+    this.submitted = true;
 
     const product = {
       type: this.form.value.type,
@@ -44,7 +44,7 @@ export class AddPageComponent implements OnInit {
 
     this.productService.create(product).subscribe(res => {
       this.form.reset();
-      this.submited = false;
+      this.submitted = false;
       this.router.navigate(['/']);
     });
 

@@ -17,7 +17,7 @@
 		<div *ngIf="_password!.touched && _password!.invalid" class="validation">
 			<small *ngIf="_password!.errors?.['required']">Enter Password</small>
 			<small *ngIf="_password!.errors?.['minlength']">
-				Passwor must be at least {{_password!.errors?.['minlength'].requiredLength}} characters.
+				Password must be at least {{_password!.errors?.['minlength'].requiredLength}} characters.
 				Now he {{_password!.errors?.['minlength'].actualLength}}
 			</small>
 		</div>
