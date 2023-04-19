@@ -31,7 +31,7 @@
 </div>
 <div class="form-control">
 	<label for="price">Price</label>
-	<input id="price" type="price" formControlName="price">
+	<input id="price" type="number" formControlName="price">
 	<div *ngIf="form.get('price')?.touched && form.get('price')?.invalid" class="validation">
 		<small *ngIf="form.get('price')?.errors?.['required']">Choose product type</small>
 	</div>

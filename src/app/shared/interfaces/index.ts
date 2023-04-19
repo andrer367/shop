@@ -19,10 +19,19 @@ export interface Product {
 	date: Date;
 }
 
-export interface FbResponse {
-	name: string;
-}
+
 
 export interface ProductResponse extends Product {
 	id: string;
+}
+
+export interface Order {
+	id?: string;
+	name?: string;
+	phone?: string;
+	address?: string;
+	payment?: string;
+	orders?: ProductResponse[];
+	price?: number;
+	date:  Date;
 }

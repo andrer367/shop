@@ -30,4 +30,8 @@ export class ProductPageComponent implements OnInit {
     }
   }
 
+  addProduct(product: ProductResponse){
+    this.productService.addProduct(product);
+  }
+
 }

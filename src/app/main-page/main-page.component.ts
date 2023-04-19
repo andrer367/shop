@@ -12,7 +12,6 @@ export class MainPageComponent implements OnInit {
   products: ProductResponse[] = [];
   pSub: Subscription = new Subscription();
 
-
   constructor(public productService: ProductService) { }
   ngOnInit(): void {
     this.pSub=this.productService.getAll().subscribe(

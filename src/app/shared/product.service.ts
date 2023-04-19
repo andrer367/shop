@@ -9,6 +9,7 @@ import { Observable, map } from 'rxjs';
 })
 export class ProductService {
   type: string = '';
+  cartProduct: ProductResponse[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -56,5 +57,9 @@ export class ProductService {
 
   setType(type: string) {
     this.type = type;
+  }
+
+  addProduct(product: ProductResponse) {
+    this.cartProduct.push(product);
   }
 }

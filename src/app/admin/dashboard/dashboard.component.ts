@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   products: ProductResponse[] = [];
   pSub: Subscription = new Subscription();
   rSub: Subscription = new Subscription();
-productName: any;
+  productName: any;
 
   constructor(private productService: ProductService){}
 
