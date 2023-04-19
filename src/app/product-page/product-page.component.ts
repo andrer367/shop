@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../shared/product.service';
 import { ActivatedRoute } from '@angular/router';
-import { ProductResponse } from '../shared/interfaces';
-import { Subscription} from 'rxjs';
+import { Product } from '../shared/interfaces';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-page',
@@ -10,18 +10,18 @@ import { Subscription} from 'rxjs';
   styleUrls: ['./product-page.component.scss']
 })
 export class ProductPageComponent implements OnInit {
-  product$! : ProductResponse;
+  product$!: Product;
   pSub: Subscription = new Subscription();
 
   constructor(
     private productService: ProductService,
     private router: ActivatedRoute
 
-  ) {}
+  ) { }
   ngOnInit(): void {
     let id = this.router.snapshot.params['id'];
- 
-    this.pSub=this.productService.getById(id).subscribe((data) => this.product$ = data)
+
+    this.pSub = this.productService.getById(id).subscribe((data) => this.product$ = data)
   }
 
   ngOnDestroy() {
@@ -30,7 +30,7 @@ export class ProductPageComponent implements OnInit {
     }
   }
 
-  addProduct(product: ProductResponse){
+  addProduct(product: Product) {
     this.productService.addProduct(product);
   }
 

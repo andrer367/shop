@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../shared/product.service';
-import { ProductResponse } from '../shared/interfaces';
+import { Product } from '../shared/interfaces';
 import { Subscription, throwError } from 'rxjs';
 
 @Component({
@@ -9,12 +9,12 @@ import { Subscription, throwError } from 'rxjs';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent implements OnInit {
-  products: ProductResponse[] = [];
+  products: Product[] = [];
   pSub: Subscription = new Subscription();
 
   constructor(public productService: ProductService) { }
   ngOnInit(): void {
-    this.pSub=this.productService.getAll().subscribe(
+    this.pSub = this.productService.getAll().subscribe(
       response => { this.products = response },
       error => {
         throwError(error)

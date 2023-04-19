@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../shared/product.service';
-import { ProductResponse } from '../shared/interfaces';
+import { Product } from '../shared/interfaces';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OrderService } from '../shared/order.service';
 import { Router } from '@angular/router';
@@ -11,11 +11,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./cart-page.component.scss'],
 })
 export class CartPageComponent implements OnInit {
-  cartProducts: ProductResponse[] = [];
+  cartProducts: Product[] = [];
   totalPrice: number = 0;
   form!: FormGroup;
   submitted: boolean = false;
-  constructor(private productService: ProductService, private orderService: OrderService, private router: Router) {}
+  constructor(private productService: ProductService, private orderService: OrderService, private router: Router) { }
 
   ngOnInit(): void {
     this.cartProducts = this.productService.cartProduct;
@@ -31,7 +31,7 @@ export class CartPageComponent implements OnInit {
   }
 
   submit() {
-    if(this.form.invalid){
+    if (this.form.invalid) {
       return;
     }
     this.submitted = true;
@@ -47,15 +47,15 @@ export class CartPageComponent implements OnInit {
     }
 
     this.orderService.create(order)
-    .subscribe(res => {
-      this.form.reset();
-      this.submitted = false;
-      this.cartProducts.splice(0)
-      this.router.navigate(['/admin', 'orders']);
-    });
+      .subscribe(res => {
+        this.form.reset();
+        this.submitted = false;
+        this.cartProducts.splice(0)
+        this.router.navigate(['/admin', 'orders']);
+      });
   }
 
-  delete(product: ProductResponse) {
+  delete(product: Product) {
     this.totalPrice -= +product.price
     this.cartProducts.splice(this.cartProducts.indexOf(product), 1);
   }

@@ -1,4 +1,4 @@
-export interface User  {
+export interface User {
 	email: string;
 	password: string;
 	returnSecureToken: boolean;
@@ -11,6 +11,7 @@ export interface AuthResponse {
 }
 
 export interface Product {
+	id?: string;
 	type: string;
 	title: string;
 	photo: string;
@@ -19,10 +20,8 @@ export interface Product {
 	date: Date;
 }
 
-
-
-export interface ProductResponse extends Product {
-	id: string;
+export interface FbResponse {
+	name?: string ;
 }
 
 export interface Order {
@@ -31,7 +30,7 @@ export interface Order {
 	phone?: string;
 	address?: string;
 	payment?: string;
-	orders?: ProductResponse[];
+	orders?: Product[];
 	price?: number;
-	date:  Date;
+	date: Date;
 }

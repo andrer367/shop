@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ProductResponse } from 'src/app/shared/interfaces';
+import { Product } from 'src/app/shared/interfaces';
 import { ProductService } from 'src/app/shared/product.service';
 
 @Component({
@@ -9,12 +9,12 @@ import { ProductService } from 'src/app/shared/product.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  products: ProductResponse[] = [];
+  products: Product[] = [];
   pSub: Subscription = new Subscription();
   rSub: Subscription = new Subscription();
   productName: any;
 
-  constructor(private productService: ProductService){}
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
     this.pSub = this.productService.getAll().subscribe(products => {
@@ -23,8 +23,8 @@ export class DashboardComponent implements OnInit {
   }
 
   remove(id: string) {
-    this.rSub = this.productService.removeById(id).subscribe( () => {
-      this.products = this.products.filter( product => product.id !== id)
+    this.rSub = this.productService.removeById(id).subscribe(() => {
+      this.products = this.products.filter(product => product.id !== id)
     })
   }
 

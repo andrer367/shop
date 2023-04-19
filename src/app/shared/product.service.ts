@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Product, ProductResponse } from './interfaces';
+import { FbResponse, Product } from './interfaces';
 import { enviromnet } from 'src/enviromnets/enviromnet';
 import { Observable, map } from 'rxjs';
 
@@ -9,13 +9,13 @@ import { Observable, map } from 'rxjs';
 })
 export class ProductService {
   type: string = '';
-  cartProduct: ProductResponse[] = [];
+  cartProduct: Product[] = [];
 
   constructor(private http: HttpClient) { }
 
-  create(product: Product): Observable<ProductResponse> {
+  create(product: Product): Observable<Product> {
     return this.http.post(`${enviromnet.fbDbUrl}/products.json`, product)
-      .pipe(map((res: any) => {
+      .pipe(map((res: FbResponse) => {
         return {
           ...product,
           id: res.name,
@@ -24,20 +24,21 @@ export class ProductService {
       }))
   }
 
-  getAll() {
-    return this.http.get<ProductResponse[]>(`${enviromnet.fbDbUrl}/products.json`)
-    .pipe(map((res: any)=> {
-      return Object.keys(res).map(key => ({
-        ...res[key],
-        id:key,
-        data: new Date(res[key].date)
+  getAll(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${enviromnet.fbDbUrl}/products.json`)
+      .pipe(map((res: any) => {
+        console.log(res)
+        return Object.keys(res).map(key => ({
+          ...res[key],
+          id: key,
+          date: new Date(res[key].date)
+        }))
       }))
-    }))
   }
 
-  getById(id: string):Observable<ProductResponse> {
-    return this.http.get<ProductResponse>(`${enviromnet.fbDbUrl}/products/${id}.json`)
-      .pipe(map((res: ProductResponse) => {
+  getById(id: string): Observable<Product> {
+    return this.http.get<Product>(`${enviromnet.fbDbUrl}/products/${id}.json`)
+      .pipe(map((res: Product) => {
         return {
           ...res,
           id,
@@ -50,7 +51,7 @@ export class ProductService {
     return this.http.delete(`${enviromnet.fbDbUrl}/products/${id}.json`)
   }
 
-  updateById(product: ProductResponse){
+  updateById(product: Product) {
     return this.http.patch(`${enviromnet.fbDbUrl}/products/${product.id}.json`, product)
 
   }
@@ -59,7 +60,7 @@ export class ProductService {
     this.type = type;
   }
 
-  addProduct(product: ProductResponse) {
+  addProduct(product: Product) {
     this.cartProduct.push(product);
   }
 }
